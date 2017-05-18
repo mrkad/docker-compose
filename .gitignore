@@ -1,0 +1,8 @@
+webserver/apache/logs/*
+!webserver/apache/logs/.gitignore
+webserver/certs/*
+!webserver/certs/.gitignore
+webserver/mysql/data/*
+!webserver/mysql/data/.gitignore
+webserver/www/*
+!webserver/www/.gitignore

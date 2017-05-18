@@ -1,0 +1,55 @@
+version: '2'
+services:
+
+  mysql:
+    image: mysql:5.5.52
+    container_name: mysql
+    restart: always
+    volumes:
+      - ./mysql/initdb/:/docker-entrypoint-initdb.d
+      - ./mysql/mysql.conf.d/:/etc/mysql/mysql.conf.d
+      - ./mysql/data/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=qwerty
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=asdfgh
+    ports:
+      - 3306:3306
+
+#  nginx:
+#    image: nginx:stable-alpine
+#    container_name: nginx
+#    restart: always
+#    volumes:
+#      - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+#      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+#      - ./logs/nginx:/var/log/nginx
+#      - ./certs:/etc/ssl
+#    volumes_from:
+#      - php
+#    ports:
+#      - 8080:80
+#      - 443:443
+
+  php:
+    build: ./php
+    container_name: phpapache
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./www:/var/www/html/
+      - ./apache/sites-available:/etc/apache2/sites-available
+      - ./apache/logs:/var/log/apache2
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: lamp_phpmyadmin
+    environment:
+#      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+    restart: always
+    ports:
+      - 8000:80

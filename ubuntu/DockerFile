@@ -1,0 +1,5 @@
+FROM ubuntu:16.04
+MAINTAINER Kad Songsiripardabboon <kad.songsiripardabboon@gmail.com>
+RUN apt-get update && apt install -y openssh-client \
+&& apt-get install -y git \
+&& apt-get clean

@@ -6,3 +6,4 @@ webserver/mysql/data/*
 !webserver/mysql/data/.gitignore
 webserver/www/*
 !webserver/www/.gitignore
+note.txt

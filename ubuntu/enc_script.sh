@@ -1,0 +1,1 @@
+/srv/encrypt.py --dir=/srv/files/new_enc --prod

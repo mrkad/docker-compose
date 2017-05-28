@@ -3,10 +3,14 @@ services:
   nginx:
     restart: always
     image: nginx
+    container_name: nginx
     hostname: mrkad.com
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./nginx:/etc/nginx:ro
+#      - ./nginx:/etc/nginx:ro
+      - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/log:/var/log/nginx
       - ./letsencrypt/conf:/etc/letsencrypt
       - ./letsencrypt/html:/tmp/letsencrypt
     ports:
@@ -18,6 +22,7 @@ services:
   letsencrypt:
     restart: always
     image: kvaps/letsencrypt-webroot
+    container_name: letsencrypt
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock

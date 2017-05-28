@@ -1,0 +1,16 @@
+version: '2'
+services:
+  minecraft-server:
+    image: itzg/minecraft-server
+    container_name: minecraft-server
+    restart: always
+    environment:
+      - VERSION=1.11
+      - EULA=TRUE
+      - TYPE=FORGE
+      - FORGEVERSION=13.19.1.2189
+    volumes:
+     - ./data/:/data
+  #   - /srv/docker/minecraft/:/data
+    ports:
+      - 25565:25565

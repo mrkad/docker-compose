@@ -1,0 +1,33 @@
+version: '2'
+services:
+  nginx:
+    restart: always
+    image: nginx
+    hostname: mrkad.com
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx:/etc/nginx:ro
+      - ./letsencrypt/conf:/etc/letsencrypt
+      - ./letsencrypt/html:/tmp/letsencrypt
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - LE_RENEW_HOOK=docker kill -s HUP @CONTAINER_NAME@
+
+  letsencrypt:
+    restart: always
+    image: kvaps/letsencrypt-webroot
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./letsencrypt/conf:/etc/letsencrypt
+      - ./letsencrypt/html:/tmp/letsencrypt
+    links:
+      - nginx
+    environment:
+      - DOMAINS=mrkad.com www.mrkad.com
+      - EMAIL=kad.songsiripardabboon@gmail.com
+      - WEBROOT_PATH=/tmp/letsencrypt
+      - EXP_LIMIT=45
+      - CHECK_FREQ=45

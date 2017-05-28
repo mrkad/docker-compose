@@ -6,4 +6,11 @@ webserver/mysql/data/*
 !webserver/mysql/data/.gitignore
 webserver/www/*
 !webserver/www/.gitignore
+minecraft/data/*
+!minecraft/data/.gitignore
+wordpress/mysql_data/*
+!wordpress/mysql_data/.gitignore
+wordpress/wordpress_data/*
+!wordpress/wordpress_data/.gitignore
+
 note.txt

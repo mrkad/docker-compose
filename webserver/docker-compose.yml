@@ -37,6 +37,7 @@ services:
     restart: always
     volumes:
       - ./www:/var/www/html/
+      - ./certs:/etc/ssl:ro
     expose:
       - "9000"
 
@@ -51,7 +52,7 @@ services:
       - ./www:/var/www/html/
       - ./apache/sites-available:/etc/apache2/sites-available
       - ./apache/logs:/var/log/apache2
-      - ./certs:/etc/ssl
+      - ./certs:/etc/ssl:ro
 
   pma:
     image: phpmyadmin/phpmyadmin

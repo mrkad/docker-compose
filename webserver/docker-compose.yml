@@ -12,7 +12,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=ROOTpassword
       - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wp
+      - MYSQL_USER=wp_user
       - MYSQL_PASSWORD=WPpassword
 
 #Create Web Server -> NGINX
@@ -33,7 +33,7 @@ services:
 
   php-fpm:
     build: ./php-fpm
-    container_name: php-fpm
+    container_name: php_fpm
     restart: always
     volumes:
       - ./www:/var/www/html/
@@ -41,18 +41,34 @@ services:
     expose:
       - "9000"
 
-  php-apache:
-    build: ./php
-    container_name: php-apache
+  wordpress:
+    image: wordpress:latest
+    container_name: wp
     restart: always
-    ports:
-      - 8080:80
-#      - 443:443
     volumes:
-      - ./www:/var/www/html/
-      - ./apache/sites-available:/etc/apache2/sites-available
-      - ./apache/logs:/var/log/apache2
-      - ./certs:/etc/ssl:ro
+      - ./wordpress_data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: WPpassword
+    depends_on:
+      - mysql
+    ports:
+      - 8585:80
+
+
+#  php-apache:
+#    build: ./php
+#    container_name: php-apache
+#    restart: always
+#    ports:
+#      - 8080:80
+#      - 443:443
+#    volumes:
+#      - ./www:/var/www/html/
+#      - ./apache/sites-available:/etc/apache2/sites-available
+#      - ./apache/logs:/var/log/apache2
+#      - ./certs:/etc/ssl:ro
 
   pma:
     image: phpmyadmin/phpmyadmin

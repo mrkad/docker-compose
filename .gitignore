@@ -15,9 +15,4 @@ wordpress/mysql_data/*
 wordpress/wordpress_data/*
 !wordpress/wordpress_data/.gitignore
 
-squid/conf/*
-!squid/conf/.gitignore
-squid/logs/*
-!squid/logs/.gitignore
-
 note.txt

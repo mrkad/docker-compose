@@ -14,8 +14,8 @@ RUN apt-get update \
 WORKDIR /tmp
 #ADD http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.tar.gz /tmp/
 COPY pycrypto-2.6.1.tar.gz /tmp/
-RUN tar -xvzf pycrypto-2.6.tar.gz
-WORKDIR /tmp/pycrypto-2.6
+RUN tar -xvzf pycrypto-2.6.1.tar.gz
+WORKDIR /tmp/pycrypto-2.6.1
 RUN python setup.py build && python setup.py build install
 RUN rm /tmp/*.gz
 

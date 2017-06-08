@@ -19,7 +19,9 @@ WORKDIR /tmp/pycrypto-2.6.1
 RUN python setup.py build && python setup.py build install
 RUN rm /tmp/*.gz
 
+WORKDIR /srv
 RUN mkdir -p /srv/temp
 RUN mkdir -p /srv/output
 RUN mkdir -p /srv/mp4tools
 RUN mkdir -p /srv/files
+RUN chmod 777 /srv -R
